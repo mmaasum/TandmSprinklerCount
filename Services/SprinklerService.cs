@@ -1,5 +1,4 @@
-﻿using System.IO.Pipelines;
-using System.Threading.Tasks;
+
 using TandmSprinklerCount.Data;
 using static TandmSprinklerCount.Models.FireDesignModels;
 
@@ -61,7 +60,6 @@ namespace TandmSprinklerCount.Services
             double sz;
 
             Point3D sprinklerPosition;
-            Point3D connectionPoint;
             int total = countLength * countWidth;
 
             for (int index = 0; index < total; index++)
@@ -81,75 +79,10 @@ namespace TandmSprinklerCount.Services
                     2);
 
                 sprinklerPosition = new Point3D(sx, sy, sz);
-                connectionPoint = FindNearestPipePoint(sprinklerPosition, pipes);
-
-                layouts.Add(new SprinklerLayout(sprinklerPosition, connectionPoint));
+                layouts.Add(new SprinklerLayout(sprinklerPosition));
             }
 
             return layouts;
-        }
-
-        /// <summary>
-        /// Finds the closest point on the nearest water pipe to a sprinkler.
-        /// </summary>
-        private Point3D FindNearestPipePoint(Point3D sprinkler, IEnumerable<Models.FireDesignModels.Pipe> pipes)
-        {
-            if (sprinkler == null)
-                throw new ArgumentNullException(nameof(sprinkler));
-
-            if (pipes == null)
-                throw new ArgumentNullException(nameof(pipes));
-
-            double minDistance = double.MaxValue;
-            Point3D? nearestPoint = null;
-
-
-            double dx;
-            double dy;
-            double t;
-            double px;
-            double py;
-            double lengthSquared;
-            double distance;
-
-            foreach (var pipe in pipes)
-            {
-                if (pipe?.Start == null || pipe.End == null)
-                    continue;
-
-                dx = pipe.End.X - pipe.Start.X;
-                dy = pipe.End.Y - pipe.Start.Y;
-                lengthSquared = dx * dx + dy * dy;
-
-                // Skip zero-length pipes
-                if (lengthSquared <= 0)
-                    continue;
-
-                // Projection factor
-                t = Math.Clamp(
-                    ((sprinkler.X - pipe.Start.X) * dx +
-                     (sprinkler.Y - pipe.Start.Y) * dy) / lengthSquared,
-                    0.0, 1.0);
-
-                // Closest point on pipe segment
-                px = pipe.Start.X + t * dx;
-                py = pipe.Start.Y + t * dy;
-
-                distance = Math.Sqrt(
-                    (sprinkler.X - px) * (sprinkler.X - px) +
-                    (sprinkler.Y - py) * (sprinkler.Y - py));
-
-                if (distance < minDistance)
-                {
-                    minDistance = distance;
-                    nearestPoint = new Point3D(px, py, pipe.Start.Z);
-                }
-            }
-
-            if (nearestPoint == null)
-                throw new InvalidOperationException("No valid pipe found to connect.");
-
-            return nearestPoint;
         }
 
     }
