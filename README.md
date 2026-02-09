@@ -37,8 +37,9 @@ Pipe 3: (101306.65, 40539.07, 3000.00) to (91034.63, 48507.01, 3000.00)
 
 
 ### Point Plot Visualization
-This project visualizes a set of 3D coordinates on a 2D graph (top view using X and Y axes).
-<img width="2560" height="1327" alt="Figure_1" src="https://github.com/user-attachments/assets/2c15c1f4-aac5-412b-b547-5445cc32c5f5" />
+This project visualizes a set of 3D coordinates.
+<img width="1030" height="1143" alt="image" src="https://github.com/user-attachments/assets/7b7fbe84-bd83-45cd-903a-8fc7bd030ae3" />
+
 
 ---
 
