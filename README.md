@@ -33,7 +33,8 @@ Pipe 3: (101306.65, 40539.07, 3000.00) to (91034.63, 48507.01, 3000.00)
 
 
 ### API Output
-<img width="415" height="1352" alt="image" src="https://github.com/user-attachments/assets/539c603c-111c-4fd2-b070-67b7e3c79488" />
+<img width="409" height="1082" alt="image" src="https://github.com/user-attachments/assets/8d56a727-427f-4062-bb39-8d1e1fc3e98a" />
+
 
 
 ### Point Plot Visualization
